@@ -12,7 +12,9 @@ interface RevealStateProps {
 }
 
 export function RevealState({ result, onReset }: RevealStateProps) {
-  const imageUrl = result.result?.preview_url || result.result?.image_url || "";
+  const jobId = result.job_id;
+  const previewUrl = `/api/designs/${jobId}/image?type=preview`;
+  const fullUrl = `/api/designs/${jobId}/image?type=final`;
   const specs = result.result?.specs;
 
   return (
@@ -28,24 +30,20 @@ export function RevealState({ result, onReset }: RevealStateProps) {
         <p className="text-sm text-slate-500">Print-ready and production quality</p>
       </div>
 
-      {imageUrl && (
-        <DesignReveal imageUrl={imageUrl} alt="Generated design" />
-      )}
+      <DesignReveal imageUrl={previewUrl} alt="Generated design" />
 
       {specs && <SpecsRow specs={specs} />}
 
       <div className="flex items-center gap-3">
-        {result.result?.image_url && (
-          <a
-            href={result.result.image_url}
-            download
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-indigo-500 hover:bg-indigo-400 text-white font-medium px-6 py-2.5 rounded-xl transition-colors"
-          >
-            Download Full Resolution
-          </a>
-        )}
+        <a
+          href={fullUrl}
+          download
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center bg-indigo-500 hover:bg-indigo-400 text-white font-medium px-6 py-2.5 rounded-xl transition-colors"
+        >
+          Download Full Resolution
+        </a>
         <Button
           variant="outline"
           onClick={onReset}

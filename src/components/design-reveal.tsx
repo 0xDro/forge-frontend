@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 interface DesignRevealProps {
   imageUrl: string;
@@ -21,14 +20,12 @@ export function DesignReveal({ imageUrl, alt }: DesignRevealProps) {
         mass: 0.8,
       }}
     >
-      <div className="relative aspect-[3/4] w-full max-w-sm mx-auto">
-        <Image
+      <div className="relative aspect-[3/4] w-full max-w-sm mx-auto flex items-center justify-center p-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={imageUrl}
           alt={alt}
-          fill
-          className="object-contain p-4"
-          sizes="(max-width: 640px) 90vw, 384px"
-          priority
+          className="max-w-full max-h-full object-contain rounded-lg"
         />
       </div>
     </motion.div>
